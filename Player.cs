@@ -1,33 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public int coins;
-    private int health = 10;
-    public GameObject fireballPrefab;
-    public Transform attackPoint;
-    public void TakeDamage(int damage)
-    {
-        health -= damage;
-        print("Здоровье игрока: " + health);
-    }
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Instantiate(fireballPrefab,
-      attackPoint.
-      position, attackPoint.
-      rotation);
-        }
-    }
-    public void CollectCoins()
-    {
-        coins += 1;
-        print("coins" + 1);
 
-    }
-    
+	public static int score;
+	public static void Defeat()
+	{
+		score = 0;
+	}
+	public static List<Square> squares;
+	void Awake()
+	{
+		squares = new List<Square>();
+	}
+	void Update()
+	{
+		if (squares.Count == 0)
+		{
+			Victory();
+		}
+	}
+
+	public static void Defeat1()
+	{
+		UI.ShowDefeatPanel();
+		score = 0;
+	}
+
+	public static void Victory()
+	{
+		UI.ShowVictoryPanel();
+	}
+	public static void Restart()
+	{
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+	}
 }
